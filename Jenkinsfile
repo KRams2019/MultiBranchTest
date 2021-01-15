@@ -4,23 +4,54 @@ node {
     def buildInfo = Artifactory.newBuildInfo() 
 
 // Project Dir
-    def project_path = "Download"
+    def project_path = "01-Jenkins/petclinic-code"
+
+
+stage('GitCheckOut') {
+git branch: 'main', credentialsId: '01', url: 'https://github.com/amitvashisttech/devops301-mindtree-09-Jan-2021.git'
+}
+
+
+
 dir(project_path){
 
+stage('Maven Clean') {
+sh 'mvn clean'
+}
+
+stage('Maven Compile') {
+sh 'mvn compile'
+}
+
+stage('Maven test') {
+sh 'mvn test'
+}
+
+stage('Sonar-Code-Analysis'){
+sh 'mvn sonar:sonar -Dsonar.host.url=http://rlzvt92632dns.eastus2.cloudapp.azure.com:9000 -Dsonar.login=8368837055a00bc13158c8a6f729805d35fcd9d9' 
+}
+stage('Maven pkg') {
+sh 'mvn package'
+}
+
 stage('Build Managment') {
-      def downloadSpec = """{
+      def uploadSpec = """{
 	 "files": [
 	{
-	"pattern": "petclinic-war/*.war",
-	"target": "files/"
+	"pattern": "**/*.war",
+	"target": "devops301-petclinic-war"
         }
 	]
 	}"""
-	server.download spec: downloadSpec
+	server.upload spec: uploadSpec
  }
 
-stage('Deployment - Stage'){
-  deploy adapters: [tomcat8(credentialsId: 'deployer-tomcat', path: '', url: 'http://rlzvt92632dns.eastus2.cloudapp.azure.com:8080/')], contextPath: 'petclinic', war: 'files/petclinic.war'
-    }
-  }
+
+stage('Archive Artifacts') {
+archive 'target/*.war'    
+}
+}
+
+
+ 
 }
