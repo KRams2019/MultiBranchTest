@@ -43,4 +43,6 @@ stage('Deployment - Production'){
   currentBuild.result = 'FAILURE'
  }
 }
-
+def notify(status){
+	
+}
