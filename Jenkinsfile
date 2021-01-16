@@ -47,9 +47,7 @@ stage('Build Managment') {
  }
 
 
-stage('Archive Artifacts') {
-archive 'target/*.war'    
-}
+
 }
 
 
