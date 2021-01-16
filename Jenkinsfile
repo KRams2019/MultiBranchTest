@@ -28,7 +28,7 @@ sh 'mvn test'
 }
 
 stage('Sonar-Code-Analysis'){
-sh 'mvn sonar:sonar -Dsonar.host.url=http://rlzvt92632dns.eastus2.cloudapp.azure.com:9000 -Dsonar.login=8368837055a00bc13158c8a6f729805d35fcd9d9' 
+sh 'mvn sonar:sonar' 
 }
 stage('Maven pkg') {
 sh 'mvn package'
