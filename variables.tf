@@ -1,14 +1,14 @@
 
 variable "key_name" {
-  default = "terraform-key"
+  default = "linux-vm"
 }
 
 
 variable "pvt_key" {
-  default = "/root/.ssh/terraform-key.pem"
+  default = "/root/.ssh/linux-vm.pem"
 }
 
 
 variable "sg_id" {
-  default = "sg-02b2c644d114edbf9"
+  default = "sg-01773d731f692cba8"
 }
