@@ -5,12 +5,12 @@ notify('Started')
 try {
 
 // Get Artifactory server instance, defined in the Artifactory Plugin administration page.
-    def server = Artifactory.server "01"
+    def server = Artifactory.server "artifactory-server-id"
     def buildInfo = Artifactory.newBuildInfo() 
 
 
 stage('GitCheckOut') {
-git branch: 'terraform', credentialsId: '01', url: 'https://github.com/KRams2019/MultiBranchTest.git'
+git branch: 'terraform', url: 'https://github.com/KRams2019/MultiBranchTest.git'
 }
 
 
